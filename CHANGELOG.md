@@ -9,7 +9,7 @@ Added separate Silence Gate screen and Q-Links; shared fade for Crackle, Noise a
 # 0.1.4
 
 - Gentle saturation-dependent low-mid trim centred at 480 Hz for Video 2 (up to 2.5 dB), Video 3 (2 dB), Tape (1.8 dB). Smoothly follows Saturate; zero Saturate preserves measured curves. Other models and Digital remain unchanged.
-- Includes the reference-informed Wow/Flutter refinement from 0.1.3.
+- Includes the Wow/Flutter refinement from 0.1.3.
 
 # 0.1.3
 

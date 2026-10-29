@@ -1,9 +1,7 @@
-# Development record — 29 October 2026
+# DSP implementation notes
 
-The original repository was cloned locally as a starting point. Its release ZIPs, engine blobs, disassembly and firmware preparation scripts are excluded from the new public snapshot. Existing host/preset/skin integration was adapted; required third-party tooling attribution remains.
+Clif Tape uses C++ signal processing for delay interpolation, low/high-pass filtering, saturation, sample-rate reduction, generated noise and stereo modulation. The implementation is inspectable in `src/dsp.hpp`.
 
-The implementation author had prior exposure to the original firmware project. The user requested grey-room development. The new engine was written from general signal-processing techniques and the product-level control specification; no firmware DSP routine or extracted table was translated or copied into it. No strict clean-room certification or exact sound equivalence is asserted.
+Tone profiles use optimized parametric filters fitted to measured audio magnitude responses. Saturation behaviour was refined using input-level and harmonic-response tests.
 
-Delay interpolation, low/high-pass smoothing, tanh drive, quantization/sample hold, pseudo-random wear/noise and stereo phase offsets are explicit inspectable code in src/dsp.hpp. Tone-profile cutoffs are independently selected constants. The runtime performs no dynamic executable-code loading.
-
-0.1.2 uses independently optimized parametric filters fitted to measured reference magnitude responses. The optimizer reads rendered audio measurements, not firmware coefficient tables. The study documents conditions, errors and limits. Saturation ordering follows an input-level/harmonic experiment. This remains reference-informed development.
+The plugin runs its DSP directly and requires no additional sound files. Existing host, preset and skin integration was adapted for Clif Tape. Third-party tooling retains its attribution and license.

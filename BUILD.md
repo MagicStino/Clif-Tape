@@ -1,6 +1,6 @@
 # Build and test
 
-No firmware, disassembly, emulator or proprietary DSP blob is required.
+Build directly from the included C++ source.
 
 Desktop Linux development build (tested):
 ```
