@@ -47,3 +47,14 @@ The gate follows digital silence, not a level threshold: background hiss in the 
 The fifteen factory presets are starting points, including Rhodes Drive, Noisy Rhodes, Worn Cassette, Velvet Keys and Broken Reel. Preset selection updates the displayed controls. Save your edited effect with the host/project to retain settings.
 
 Q-Links follow the current page, including the Silence Gate switch and times. MIDI CC mappings: **14 Wow, 15 Volume, 16 Model/LPF, 17 Flutter, 18 Saturate/DEGRADE, 19 Failure/HPF, 72 Tape/Digital** (zero Tape, nonzero Digital). The mapped controls also remain host-automatable.
+
+## Desktop VST3
+
+The desktop edition keeps the same artwork and four control pages. Choose **Tone**, **Motion**, **Tape Noise** or **Silence Gate** at the top. Drag the white knobs vertically, drag Mix horizontally, and click anywhere on a switch to change its state. The Model arrows step through tape profiles. Tape/Digital changes the related control labels automatically.
+
+Use the preset arrows at the top right to recall one of the fifteen presets. Every control updates with the preset; changing settings shows **Custom**. Your DAW saves the settings with the project and can automate all eighteen parameters. The Silence Gate fades Noise, Mechanical and Crackle together, while the incoming music remains unaffected by this gate.
+
+![Desktop Tone page](desktop-tone.png)
+![Desktop Motion page](desktop-motion.png)
+![Desktop Tape Noise page](desktop-noise.png)
+![Desktop Silence Gate page](desktop-gate.png)
