@@ -1,0 +1,36 @@
+{
+  "schema": "openplugin.community/1",
+  "id": "clif-tape",
+  "name": "Clif Tape",
+  "author": "MagicStino",
+  "repo": "MagicStino/Clif-Tape",
+  "kind": "effect",
+  "category": "effect",
+  "license": "MIT",
+  "summary": "Stereo tape colour and digital degradation, expressive Wow/Flutter, twelve tone profiles, crackle, stereo spread, independent noise textures and Silence Gate. Fifteen presets and touchscreen Q-Links.",
+  "tags": [
+    "tape",
+    "lo-fi",
+    "stereo",
+    "effect"
+  ],
+  "images": [
+    "https://raw.githubusercontent.com/MagicStino/Clif-Tape/main/catalog-thumbnail.png",
+    "https://raw.githubusercontent.com/MagicStino/Clif-Tape/main/Preview.png"
+  ],
+  "distribution": "release",
+  "packages": [
+    {
+      "version": "0.2.0",
+      "url": "https://github.com/MagicStino/Clif-Tape/releases/download/v0.2.0/Clif-Tape-0.2.0-mpc-armv7.zip",
+      "size": 1631661,
+      "sha256": "c29f7865dedfd7fdc94af94f9da1db87f441d768b87b4b480b402bbb1923c5b3",
+      "arch": "armv7",
+      "layout": "portable",
+      "devices": [
+        "force",
+        "mpc-gen1"
+      ]
+    }
+  ]
+}

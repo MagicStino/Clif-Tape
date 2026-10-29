@@ -1,0 +1,2 @@
+c29f7865dedfd7fdc94af94f9da1db87f441d768b87b4b480b402bbb1923c5b3  Clif-Tape-0.2.0-mpc-armv7.zip
+6ee7f4abd6d9adc750edfa3f35ab59cc516dc23f78cc98000ae0076cecb4843a  Clif-Tape-source-0.2.0.zip
