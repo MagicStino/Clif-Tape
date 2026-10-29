@@ -6,8 +6,11 @@ Manual installation: download `Clif-Tape-0.2.0-mpc-armv7.zip` from Releases, ext
 
 The installed folder is normally `Synths/MagicStino - VST - Clif Tape` on the storage selected by the installer. Keep the extracted package: `sh Clif-Tape-0.2.0/uninstall.sh -y` unregisters and removes it, then restarts the application.
 
-## Replacing older versions
+## Compatible plugin platform
 
-Clif Tape replaces the older Clif Loss listing. Back up your projects and user presets before removing old versions. The original Clif Loss engine has a different plugin ID; projects using it require manual replacement and may sound different. Clif Loss Clean shares Clif Tape's parameter IDs and saved-state format, but the display name and install path change. Reinsert Clif Tape if a host cannot resolve the old name/path. This is not a promise of automatic migration for every host.
+For setup instructions and compatible community software, see:
 
-On the development Force, old installations are backed up before removal. Catalog removal does not delete users' projects.
+- [Force OpenPlugin — firmware, Plugin Manager and catalog](https://magicstino.github.io/force-openplugin/)
+- [sd88me MPC plugins — supported systems and installation instructions](https://github.com/sd88me/mpc-vst-plugins)
+
+Clif Tape is supplied as a ready-built installer; no compiling is needed.
