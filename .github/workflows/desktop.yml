@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == macOS ]]; then
-            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DSMTG_RUN_VST_VALIDATOR=OFF -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk" "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DSMTG_RUN_VST_VALIDATOR=OFF -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk" "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
           else
             cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DSMTG_RUN_VST_VALIDATOR=OFF -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk"
           fi
@@ -44,7 +44,15 @@ jobs:
           fi
       - name: Package ready-built plugin
         shell: bash
-        run: python desktop-source/desktop/package.py "${{ runner.os }}"
+        run: |
+          cat >> desktop-source/desktop/INSTALL.txt <<'GUIDE'
+
+          Windows 10/11 x64 requires the current Microsoft Visual C++ v14 x64 runtime.
+          If MSVCP140 or VCRUNTIME140 is missing, install Microsoft's runtime:
+          https://aka.ms/vc14/vc_redist.x64.exe
+          macOS minimum deployment targets: 10.15 Intel / 11 Apple Silicon.
+          GUIDE
+          python desktop-source/desktop/package.py "${{ runner.os }}"
       - uses: actions/upload-artifact@v4
         with:
           name: Clif-Tape-${{ runner.os }}-VST3
