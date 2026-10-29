@@ -28,12 +28,20 @@ jobs:
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == macOS ]]; then
-            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk" "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DSMTG_RUN_VST_VALIDATOR=OFF -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk" "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
           else
-            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk"
+            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DSMTG_RUN_VST_VALIDATOR=OFF -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk"
           fi
       - name: Build and validate VST3
         run: cmake --build desktop-source/desktop/vst3/build --config Release --parallel 2
+      - name: Validate native VST3
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == Windows ]]; then
+            desktop-source/desktop/vst3/build/bin/Release/validator.exe desktop-source/desktop/vst3/build/VST3/Release/ClifTape.vst3
+          else
+            desktop-source/desktop/vst3/build/bin/Release/validator desktop-source/desktop/vst3/build/VST3/Release/ClifTape.vst3
+          fi
       - name: Package ready-built plugin
         shell: bash
         run: python desktop-source/desktop/package.py "${{ runner.os }}"
