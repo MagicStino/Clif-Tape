@@ -1,0 +1,59 @@
+name: Clif Tape desktop VST3
+on:
+  push:
+    branches: [main]
+    paths: ['Clif-Tape-desktop-source.zip', '.github/workflows/desktop.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack desktop source
+        shell: bash
+        run: python -m zipfile -e Clif-Tape-desktop-source.zip desktop-source
+      - name: SDK
+        shell: bash
+        run: |
+          git clone --recursive https://github.com/steinbergmedia/vst3sdk.git "$RUNNER_TEMP/vst3sdk"
+          git -C "$RUNNER_TEMP/vst3sdk" checkout 3cdf9ca5d1f5b1b21e0a86832aa4abe55607bd96
+          git -C "$RUNNER_TEMP/vst3sdk" submodule update --init --recursive
+      - name: Configure
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk" "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+          else
+            cmake -S desktop-source/desktop/vst3 -B desktop-source/desktop/vst3/build -DCMAKE_BUILD_TYPE=Release -DVST3_SDK_ROOT="$RUNNER_TEMP/vst3sdk"
+          fi
+      - name: Build and validate VST3
+        run: cmake --build desktop-source/desktop/vst3/build --config Release --parallel 2
+      - name: Package ready-built plugin
+        shell: bash
+        run: python desktop-source/desktop/package.py "${{ runner.os }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Clif-Tape-${{ runner.os }}-VST3
+          path: desktop-source/dist/*.zip
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Clif-Tape-*-VST3
+          merge-multiple: true
+          path: packages
+      - name: Publish verified desktop packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload v0.2.0 packages/*.zip --clobber
